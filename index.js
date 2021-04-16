@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const Document = require('./models/document');
 const app = express();
-const port = 5000;
+const port = 80;
 
 //we load the db location from the JSON files
 const config = require("config");

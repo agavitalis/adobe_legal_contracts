@@ -1,5 +1,5 @@
-
 const PDFToolsSdk = require('@adobe/documentservices-pdftools-node-sdk');
+const Document = require('../models/document');
 
 /*
  * GET / route to show the createPDF form.
@@ -36,12 +36,27 @@ function createPDFPost(req, res) {
 
         // Execute the operation and Save the result to the specified location.
         createPdfOperation.execute(executionContext)
-            .then((result) => {
+            .then(async(result) => {
 
-                result.saveAsFile(`output/createPDFFromDOCX-${Math.random() * 120}.pdf`)
+                let newFileName = `createPDFFromDOCX-${Math.random() * 171}.pdf`
+                let newFilePath = require('path').resolve('./') + `\\output\\${newFileName}`
+                await result.saveAsFile(`output/${newFileName}`)
 
-                //download the file
-                res.redirect('/?response=PDF Successfully created')
+                //Creates a new document
+                let newDocument = new Document({
+                    documentName: fileName,
+                    url: newFilePath
+                });
+                //Save it into the DB.
+                newDocument.save((err, docs) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                    else {
+                        res.redirect('/?response=PDF Successfully created')
+                    }
+                });
+
             })
             .catch(err => {
                 if (err instanceof PDFToolsSdk.Error.ServiceApiError
@@ -56,8 +71,6 @@ function createPDFPost(req, res) {
     }
 
 }
-
-
 
 
 //export all the functions

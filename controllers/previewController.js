@@ -1,39 +1,18 @@
-const fs = require('fs')
-const mongoose = require('mongoose');
 const Document = require('../models/document');
 
 /*
- * GET / route to show the search form.
+ * GET /previewPDF route to show PDF file in AdobeEmbedAPI.
  */
-function search(req, res) {
+async function previewPDF(req, res) {
     //catch any response on the url
-    let response = req.query.response
-    res.render('search', { response })
+    let documentId = req.params.documentId
+    let document = await Document.findOne({_id:documentId});
+    res.render('search', { document })
 }
 
 
 /*
- * POST /searchPost to search the contents our saved file.
- */
-function searchPost(req, res) {
-
-    let searchString = req.body.searchString;
-    console.log("search seting",searchString)
-    Document.aggregate([
-        { $match: { $text: { $search: searchString } } },
-        { $sort: { score: { $meta: "textScore" } } },
-    ])
-    .then(function (documents) {
-        res.render('search', { documents })
-    })
-    .catch(function (error) {
-        let response = error
-        res.render('search', { response })
-    });
-}
-
-/*
- * POST /downloadPDF To Donload PDF Documents.
+ * GET /downloadPDF To Donload PDF Documents.
  */
 async function downloadPDF(req, res) {
    
@@ -43,4 +22,4 @@ async function downloadPDF(req, res) {
 }
 
 //export all the functions
-module.exports = { search, searchPost, downloadPDF };
+module.exports = { previewPDF, downloadPDF };

@@ -21,6 +21,9 @@ router.route("/")
     .get(createPDFController.createPDF)
     .post(fileUpload.single("document"),createPDFController.createPDFPost)
 
+router.route("/listFIles")
+    .get(previewController.listFiles)
+    
 router.route("/previewPDF/:documentId")
     .get(previewController.previewPDF)
    

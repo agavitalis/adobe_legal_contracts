@@ -162,13 +162,25 @@
   }
 
  
-  .form-input input[type="file"] {
+  .form-input input[type="file"]{
       background: transparent;
       border: none;
       outline: none;
       width: 100%;
       font-size: 16px;
       padding: 10px 12px 0px 0px;
+      color: var(--title-color);
+      height: 45px;
+      -webkit-appearance: none;
+  }
+ 
+  .form-input input[type="text"] {
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 16px;
+      padding: 0px 12px 0px 0px;
       color: var(--title-color);
       height: 45px;
       -webkit-appearance: none;

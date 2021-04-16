@@ -1,5 +1,15 @@
 const Document = require('../models/document');
 
+
+/*
+ * GET /listFiles route to show PDF file lists.
+ */
+async function listFiles(req, res) {
+    let documents = await Document.find({});
+    res.render('lists', { documents })
+}
+
+
 /*
  * GET /previewPDF route to show PDF file in AdobeEmbedAPI.
  */
@@ -7,7 +17,7 @@ async function previewPDF(req, res) {
     //catch any response on the url
     let documentId = req.params.documentId
     let document = await Document.findOne({_id:documentId});
-    res.render('search', { document })
+    res.render('preview', { document })
 }
 
 
@@ -22,4 +32,4 @@ async function downloadPDF(req, res) {
 }
 
 //export all the functions
-module.exports = { previewPDF, downloadPDF };
+module.exports = {listFiles, previewPDF, downloadPDF };

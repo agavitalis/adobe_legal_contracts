@@ -44,7 +44,7 @@ function createPDFPost(req, res) {
 
                 //Creates a new document
                 let newDocument = new Document({
-                    documentName: fileName,
+                    documentName: req.body.name,
                     url: newFilePath
                 });
                 //Save it into the DB.

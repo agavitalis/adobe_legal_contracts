@@ -40,11 +40,11 @@ function createPDFPost(req, res) {
 
                 let newFileName = `createPDFFromDOCX-${Math.random() * 171}.pdf`
                 let newFilePath = require('path').resolve('./') + `\\output\\${newFileName}`
-                await result.saveAsFile(`output/${newFileName}`)
+                await result.saveAsFile(`views/output/${newFileName}`)
 
                 //Creates a new document
                 let newDocument = new Document({
-                    documentName: req.body.name,
+                    documentName: newFileName,
                     url: newFilePath
                 });
                 //Save it into the DB.

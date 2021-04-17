@@ -16,13 +16,13 @@
 	<script type="text/javascript">
 	    
 		let pdfDocumentName = document.getElementById("pdfDocumentName").value;
-		let pdfDocumentUrl = document.getElementById("pdfDocumentName").value;
-		
+		let pdfDocumentUrl = document.getElementById("pdfDocumentUrl").value;
+		console.log(pdfDocumentUrl)
 
 		document.addEventListener("adobe_dc_view_sdk.ready", function () {
 			var adobeDCView = new AdobeDC.View({ clientId: "bc57542074494915b46f6322ceb8938e", divId: "adobe-dc-view" });
 			adobeDCView.previewFile({
-				content: { location: { url: pdfDocumentUrl } },
+				content: { location: { url: `http://localhost:5000/output/${pdfDocumentName}` } },
 				metaData: { fileName: pdfDocumentName }
 			}, {});
 		});

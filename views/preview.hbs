@@ -4,31 +4,27 @@
 	<title>Adobe Document Services PDF Embed API Sample</title>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1" />
+	<meta id="viewport" name="viewport" content="width=device-width,
+			initial-scale=1" />
 </head>
 
 <body style="margin: 0px">
-	<input type="hidden" id="thingIWant" value={{list}} />
+	<input type="hidden" id="pdfDocumentName" value={{document.documentName}} />
+	<input type="hidden" id="pdfDocumentUrl" value={{document.url}} />
 	<div id="adobe-dc-view"></div>
 	<script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
 	<script type="text/javascript">
-
-		var aList = document.getElementById("thingIWant").value;
+	    
+		let pdfDocumentName = document.getElementById("pdfDocumentName").value;
+		let pdfDocumentUrl = document.getElementById("pdfDocumentName").value;
+		
 
 		document.addEventListener("adobe_dc_view_sdk.ready", function () {
-			var adobeDCView = new AdobeDC.View({clientId: "90280853f252478cb035820262f92b7d", divId: "adobe-dc-view" });
-			var previewFilePromise = adobeDCView.previewFile({
-				content: { location: { url: "https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf" } },
-				metaData: { fileName: "Bodea Brochure.pdf" }
-			});
-
-			previewFilePromise.then(adobeViewer => {
-
-				adobeViewer.getAPIs().then(apis => {
-
-					// All viewer APIs can be invoked here
-				});
-			});
+			var adobeDCView = new AdobeDC.View({ clientId: "bc57542074494915b46f6322ceb8938e", divId: "adobe-dc-view" });
+			adobeDCView.previewFile({
+				content: { location: { url: pdfDocumentUrl } },
+				metaData: { fileName: pdfDocumentName }
+			}, {});
 		});
 	</script>
 </body>
